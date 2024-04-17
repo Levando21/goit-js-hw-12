@@ -1,14 +1,14 @@
 import axios from 'axios';
+import { url } from './js/pixabay-api';
+
+const query = 'cat';
+const searchParams = url(query);
 
 axios
-  .get('<https://jsonplaceholder.typicode.com/users>')
+  .get(`https://pixabay.com/api/?${searchParams}`)
   .then(response => {
     console.log(response.data);
-    console.log(response.status);
-    console.log(response.statusText);
-    console.log(response.headers);
-    console.log(response.config);
   })
   .catch(error => {
-    console.log(error);
+    console.error('Error fetching data:', error);
   });
