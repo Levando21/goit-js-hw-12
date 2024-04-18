@@ -8,16 +8,23 @@
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <load ="partials/header.html" />
+    <div>
+      <input type="text" id="searchBar" name="query" placeholder="Search:" />
+      <button
+        class="js-button"
+        type="submit"
+        id="myButton"
+        data-set="custom-data"
+      >
+        Search
+      </button>
+    </div>
 
-    <section>
-      <h1>Example page title</h1>
-      <!-- Path to images as from index.html file -->
-      <img src="./img/javascript.svg" alt="" />
-    </section>
-
-    <!-- Loads the specified .html file -->
-    <load ="partials/vite-promo.html" />
+    <div class="yeah">
+      <ul class="js-list">
+        <button class="js-button-load load-hidden">Load more</button>
+      </ul>
+    </div>
 
     <script type="module" src="./main.js"></script>
   </body>
