@@ -23,8 +23,11 @@ const form = document.querySelector('.custom-search-form');
 const container = document.querySelector('.custom-gallery');
 const loader = document.querySelector('.custom-loader');
 const loadMoreBtn = document.querySelector('.custom-load-btn');
+
+let hasMoreResults = true;
 let searchTerm = '';
 let currentPage;
+loadMoreBtn.style.display = 'none';
 
 form.addEventListener('submit', onSubmit);
 loadMoreBtn.addEventListener('click', onLoadMore);
@@ -34,7 +37,7 @@ async function onSubmit(event) {
   event.preventDefault();
   container.innerHTML = '';
   searchTerm = form.elements.customSearchWord.value.trim();
-  loadMoreBtn.style.display = 'block';
+  loadMoreBtn.style.display = 'none';
 
   if (searchTerm === '') {
     showEmptyInputMessage();
@@ -50,13 +53,18 @@ async function onSubmit(event) {
       const markup = renderMarkup(data);
       if (data.hits.length === 0) {
         showNoImagesMessage();
-        loadMoreBtn.style.display = 'none';
         loader.style.display = 'none';
         return;
       }
       container.insertAdjacentHTML('beforeend', markup);
-      lightbox.refresh();
       loader.style.display = 'none';
+      lightbox.refresh();
+      if (data.hits.length <= 14) {
+        hasMoreResults = false;
+      } else {
+        hasMoreResults = true;
+        loadMoreBtn.style.display = 'block';
+      }
     });
   } catch (error) {
     console.error('Error:', error);
@@ -67,9 +75,11 @@ async function onSubmit(event) {
 async function onLoadMore() {
   currentPage += 1;
   try {
+    loadMoreBtn.style.display = 'none';
     const images = await fetchImages(searchTerm, currentPage).then(data => {
       const markup = renderMarkup(data);
       container.insertAdjacentHTML('beforeend', markup);
+
       lightbox.refresh();
 
       const containerHeight = container.getBoundingClientRect().height;
@@ -79,9 +89,11 @@ async function onLoadMore() {
       });
 
       if (data.hits.length <= 14) {
-        loadMoreBtn.style.display = 'none';
         showEndOfListMessage();
-        lightbox.refresh();
+        hasMoreResults = false;
+      } else {
+        hasMoreResults = true;
+        loadMoreBtn.style.display = 'block';
       }
     });
   } catch (error) {
