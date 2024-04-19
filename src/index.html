@@ -4,28 +4,30 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Goit 12</title>
+    <title>Homework 12</title>
     <link rel="stylesheet" href="./css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div>
-      <input type="text" id="searchBar" name="query" placeholder="Search:" />
-      <button
-        class="js-button"
-        type="submit"
-        id="myButton"
-        data-set="custom-data"
-      >
-        Search
-      </button>
-    </div>
+    <form class="custom-search-form" id="customSearchForm">
+      <input
+        type="text"
+        name="customSearchWord"
+        class="custom-search-input"
+        placeholder="Search images..."
+      />
+      <button class="custom-search-btn" type="submit">Search</button>
+    </form>
 
-    <div class="yeah">
-      <ul class="js-list">
-        <button class="js-button-load load-hidden">Load more</button>
-      </ul>
-    </div>
+    <div class="custom-gallery"></div>
+    <button class="custom-load-btn" type="submit">Load more</button>
+    <div class="custom-loader"></div>
 
     <script type="module" src="./main.js"></script>
+    <script type="module" src="./js/pixabay-api.js"></script>
+    <script type="module" src="./js/function-render.js"></script>
   </body>
 </html>
